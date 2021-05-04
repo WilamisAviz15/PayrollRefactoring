@@ -36,3 +36,9 @@ O objetivo do projeto é construir um sistema de folha de pagamento. O sistema c
 
 
 # Code Smell
+Duplicated Code
+Long Parameter List
+Long Method
+Large Class
+Shotgun Surgery
+Indecent Exposure
