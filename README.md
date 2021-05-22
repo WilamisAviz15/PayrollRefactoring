@@ -42,3 +42,7 @@ O objetivo do projeto é construir um sistema de folha de pagamento. O sistema c
 * Large Class
 * Shotgun Surgery
 * Indecent Exposure
+
+# Refatoramento
+### Long Parameter List
+Em todas as funções eram passadas as pilhas de UNDO e REDO. Foi criado um objeto que contia ambas as pilhas evitando parametros desnecessários. Alteração pode ser vista no commit: [Aqui](https://github.com/WilamisAviz15/PayrollRefactoring/commit/b5e5a0986767729fe53756865af72b7bc743a384)
