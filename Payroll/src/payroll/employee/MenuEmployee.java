@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.util.Stack;
 
 import payroll.Panel;
+import payroll.StackUndoRedo;
 import payroll.employee.model.Commissioned;
 import payroll.employee.model.Employee;
 import payroll.employee.model.Hourly;
@@ -24,8 +25,8 @@ public class MenuEmployee {
     public static int idSyndicateInt = 0;
     private static String[] accountType = { "Corrente", "Poupança", "Fácil", "Conjunta" };
 
-    public static void Menu(List<Employee> list_employee, PaymentSchedule paySchedule, Stack<List<Employee>> undoStack,
-            Stack<List<Employee>> redo, List<Payslip> payslipSheet) {
+    public static void Menu(List<Employee> list_employee, PaymentSchedule paySchedule, StackUndoRedo stack_undo_redo,
+            List<Payslip> payslipSheet) {
         int option;
         String tmp = "";
         Scanner op = new Scanner(System.in);
@@ -40,28 +41,31 @@ public class MenuEmployee {
             tmp = Utils.consoleReadInputIntegerOptions(tmp, op, 1, 7);
             option = Integer.parseInt(tmp);
             switch (option) {
-            case 1:
-                list_employee.add(MenuEmployee.addEmployee(paySchedule, list_employee, undoStack, redo, payslipSheet));
-                break;
-            case 2:
-                MenuEmployee.removeEmployee(list_employee, undoStack, redo);
-                break;
-            case 3:
-                MenuEmployee.editEmployee(list_employee, paySchedule, undoStack, redo, payslipSheet);
-                break;
-            case 4:
-                MenuEmployee.ListAllEmployee(list_employee);
-                break;
-            case 5:
-                MenuEmployee.listEmployeeById(list_employee);
-                break;
+                case 1:
+                    list_employee
+                            .add(MenuEmployee.addEmployee(paySchedule, list_employee, stack_undo_redo, payslipSheet));
+                    break;
+                case 2:
+                    MenuEmployee.removeEmployee(list_employee, stack_undo_redo);
+                    break;
+                case 3:
+                    MenuEmployee.editEmployee(list_employee, paySchedule, stack_undo_redo, payslipSheet);
+                    break;
+                case 4:
+                    MenuEmployee.ListAllEmployee(list_employee);
+                    break;
+                case 5:
+                    MenuEmployee.listEmployeeById(list_employee);
+                    break;
             }
         } while (option != 6);
     }
 
     public static Employee addEmployee(PaymentSchedule paySchedule, List<Employee> lEmployees,
-            Stack<List<Employee>> undoStack, Stack<List<Employee>> redo, List<Payslip> payslipSheet) {
-        undoStack.push(Utils.cloneList(lEmployees));
+            StackUndoRedo stack_undo_redo, List<Payslip> payslipSheet) {
+        Stack<List<Employee>> undo = stack_undo_redo.getUndo();
+        Stack<List<Employee>> redo = stack_undo_redo.getRedo();
+        undo.push(Utils.cloneList(lEmployees));
         redo.clear();
         PaymentMethod paymentMethod = null;
         Syndicate sindicalist = null;
@@ -156,11 +160,12 @@ public class MenuEmployee {
         return newEmployees;
     }
 
-    public static void removeEmployee(List<Employee> list_employee, Stack<List<Employee>> undoStack,
-            Stack<List<Employee>> redo) {
+    public static void removeEmployee(List<Employee> list_employee, StackUndoRedo stack_undo_redo) {
         int index = findEmployee(list_employee);
         if (index != -1) {
-            undoStack.push(Utils.cloneList(list_employee));
+            Stack<List<Employee>> undo = stack_undo_redo.getUndo();
+            Stack<List<Employee>> redo = stack_undo_redo.getRedo();
+            undo.push(Utils.cloneList(list_employee));
             redo.clear();
             list_employee.remove(index);
             System.out.println("Employee removed.");
@@ -220,7 +225,7 @@ public class MenuEmployee {
     }
 
     public static void editEmployee(List<Employee> list_employee, PaymentSchedule paySchedule,
-            Stack<List<Employee>> undoStack, Stack<List<Employee>> redo, List<Payslip> payslipSheet) {
+            StackUndoRedo stack_undo_redo, List<Payslip> payslipSheet) {
         String op, attr;
         Double salary = 0.00;
         String bankId;
@@ -230,7 +235,9 @@ public class MenuEmployee {
         Scanner sc = new Scanner(System.in);
         int index = findEmployee(list_employee);
         if (index != -1) {
-            undoStack.push(Utils.cloneList(list_employee));
+            Stack<List<Employee>> undo = stack_undo_redo.getUndo();
+            Stack<List<Employee>> redo = stack_undo_redo.getRedo();
+            undo.push(Utils.cloneList(list_employee));
             redo.clear();
             Employee selectedEmployee = list_employee.get(index);
             System.out.printf("Employed selected: %s. What do you want to edit?\n", selectedEmployee.getName());

@@ -6,13 +6,14 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
+import payroll.StackUndoRedo;
 import payroll.employee.model.Employee;
 import payroll.employee.model.Hourly;
 import payroll.employee.model.Timecard;
 import payroll.utils.Utils;
 
 public class MenuTimecard {
-    public static void Timecard(List<Employee> list_employee, Stack<List<Employee>> undo, Stack<List<Employee>> redo) {
+    public static void Timecard(List<Employee> list_employee, StackUndoRedo stack_undo_redo) {
         int option;
         String tmp = "";
         Scanner op = new Scanner(System.in);
@@ -24,23 +25,25 @@ public class MenuTimecard {
             tmp = Utils.consoleMenuTimecard(tmp, op);
             option = Integer.parseInt(tmp);
             switch (option) {
-            case 1:
-                Login(list_employee, undo, redo);
-                break;
-            case 2:
-                Logout(list_employee, undo, redo);
-                break;
+                case 1:
+                    Login(list_employee, stack_undo_redo);
+                    break;
+                case 2:
+                    Logout(list_employee, stack_undo_redo);
+                    break;
             }
         } while (option != 3);
     }
 
-    public static void Login(List<Employee> list_employee, Stack<List<Employee>> undo, Stack<List<Employee>> redo) {
+    public static void Login(List<Employee> list_employee, StackUndoRedo stack_undo_redo) {
         int index = MenuEmployee.findEmployee(list_employee);
         String tmp = "";
         Scanner sc = new Scanner(System.in);
         if (index != -1) {
             Employee selectedEmployee = list_employee.get(index);
             if (selectedEmployee instanceof Hourly) {
+                Stack<List<Employee>> undo = stack_undo_redo.getUndo();
+                Stack<List<Employee>> redo = stack_undo_redo.getRedo();
                 undo.push(Utils.cloneList(list_employee));
                 redo.clear();
                 Hourly empl = (Hourly) selectedEmployee;
@@ -71,7 +74,7 @@ public class MenuTimecard {
         return -1;
     }
 
-    public static void Logout(List<Employee> list_employee, Stack<List<Employee>> undo, Stack<List<Employee>> redo) {
+    public static void Logout(List<Employee> list_employee, StackUndoRedo stack_undo_redo) {
         int index = MenuEmployee.findEmployee(list_employee);
         String tmp = "";
         Scanner sc = new Scanner(System.in);
@@ -82,6 +85,8 @@ public class MenuTimecard {
                 LocalDate date = Utils.validateDate(sc);
                 int aux = findTimecard(empl.getTimecard(), date);
                 if (aux != -1) {
+                    Stack<List<Employee>> undo = stack_undo_redo.getUndo();
+                    Stack<List<Employee>> redo = stack_undo_redo.getRedo();
                     undo.push(Utils.cloneList(list_employee));
                     redo.clear();
                     List<Timecard> t = Utils.cloneListTimecard(empl.getTimecard());

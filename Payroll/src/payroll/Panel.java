@@ -27,9 +27,9 @@ public class Panel {
 
     Stack<List<Employee>> undo = new Stack<>();
     Stack<List<Employee>> redo = new Stack<>();
+    StackUndoRedo stack_undo_redo = new StackUndoRedo(undo, redo);
 
-    public static void LaunchSales(List<Employee> list_employee, Stack<List<Employee>> undo,
-            Stack<List<Employee>> redo) {
+    public static void LaunchSales(List<Employee> list_employee, StackUndoRedo stack_undo_redo) {
         int index = MenuEmployee.findEmployee(list_employee);
         Double value;
         String tmp = "";
@@ -37,6 +37,8 @@ public class Panel {
         if (index != -1) {
             Employee selectedEmployee = list_employee.get(index);
             if (selectedEmployee instanceof Commissioned) {
+                Stack<List<Employee>> undo = stack_undo_redo.getUndo();
+                Stack<List<Employee>> redo = stack_undo_redo.getRedo();
                 undo.push(Utils.cloneList(list_employee));
                 redo.clear();
                 Commissioned empl = (Commissioned) selectedEmployee;
@@ -57,7 +59,7 @@ public class Panel {
         }
     }
 
-    public static void LaunchFee(List<Employee> list_employee, Stack<List<Employee>> undo, Stack<List<Employee>> redo) {
+    public static void LaunchFee(List<Employee> list_employee, StackUndoRedo stack_undo_redo) {
         int index = MenuEmployee.findEmployee(list_employee);
         String tmp = "";
         Double value;
@@ -65,6 +67,8 @@ public class Panel {
         if (index != -1) {
             Employee selectedEmployee = list_employee.get(index);
             if (selectedEmployee.getSyndicate().getActive() == true) {
+                Stack<List<Employee>> undo = stack_undo_redo.getUndo();
+                Stack<List<Employee>> redo = stack_undo_redo.getRedo();
                 undo.push(Utils.cloneList(list_employee));
                 redo.clear();
                 Syndicate s = Utils.cloneListSyndicate(selectedEmployee.getSyndicate());
@@ -107,25 +111,27 @@ public class Panel {
             opc = Integer.parseInt(option);
             switch (opc) {
             case 1:
-                MenuEmployee.Menu(list_employee, paySchedules, undo, redo, payslipSheet);
+                MenuEmployee.Menu(list_employee, paySchedules, stack_undo_redo, payslipSheet);
                 break;
             case 2:
-                MenuTimecard.Timecard(list_employee, undo, redo);
+                MenuTimecard.Timecard(list_employee, stack_undo_redo);
                 break;
             case 3:
-                LaunchSales(list_employee, undo, redo);
+                LaunchSales(list_employee, stack_undo_redo);
                 break;
             case 4:
-                LaunchFee(list_employee, undo, redo);
+                LaunchFee(list_employee, stack_undo_redo);
                 break;
             case 5:
-                MenuPayroll.Menu(list_employee, undo, redo);
+                MenuPayroll.Menu(list_employee, stack_undo_redo);
                 break;
             case 6:
                 MenuPayoutSchedule.Menu(paySchedules);
                 break;
             case 7:
                 if (undo.size() > 0) {
+                    Stack<List<Employee>> undo = stack_undo_redo.getUndo();
+                    Stack<List<Employee>> redo = stack_undo_redo.getRedo();
                     List<Employee> aux = undo.pop();
                     redo.push(Utils.cloneList(list_employee));
                     list_employee = aux;
@@ -136,6 +142,8 @@ public class Panel {
                 break;
             case 8:
                 if (redo.size() > 0) {
+                    Stack<List<Employee>> undo = stack_undo_redo.getUndo();
+                    Stack<List<Employee>> redo = stack_undo_redo.getRedo();
                     List<Employee> aux = redo.pop();
                     undo.push(Utils.cloneList(list_employee));
                     list_employee = aux;
