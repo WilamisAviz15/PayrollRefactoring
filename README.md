@@ -44,4 +44,5 @@ O objetivo do projeto é construir um sistema de folha de pagamento. O sistema c
 * Indecent Exposure
 
 # Refatoramento
-* Aq
+### Long Parameter List
+Em todas as funções eram passadas as pilhas de UNDO e REDO. Foi criado um objeto que contia ambas as pilhas evitando parametros desnecessários. Alteração pode ser vista no commit: <a href=“https://github.com/WilamisAviz15/PayrollRefactoring/commit/b5e5a0986767729fe53756865af72b7bc743a384“>Aqui</a>
