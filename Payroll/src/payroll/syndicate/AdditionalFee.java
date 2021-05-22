@@ -18,16 +18,8 @@ public class AdditionalFee {
         return date;
     }
 
-    public void setData(LocalDate date) {
-        this.date = date;
-    }
-
     public Double getValue() {
         return value;
-    }
-
-    public void setData(Double value) {
-        this.value = value;
     }
 
     @Override

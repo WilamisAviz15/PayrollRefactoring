@@ -18,16 +18,8 @@ public class CheckByPostOffice extends PaymentMethod{
         return numberCheck;
     }
 
-    public void setNumberCheck(int numberCheck) {
-        this.numberCheck = numberCheck;
-    }
-
     public String getAddress() {
         return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     @Override

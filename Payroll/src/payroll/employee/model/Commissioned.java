@@ -12,15 +12,6 @@ public class Commissioned extends Employee {
     private Double comission;
     private List<Sales> sales;
 
-    public Commissioned() {
-    }
-
-    public Commissioned(Double salary, Double comission) {
-        this.salary = salary;
-        this.comission = comission;
-        this.sales = new ArrayList<Sales>();
-    }
-
     public Commissioned(Commissioned s) {
         this(s.getId(), s.getName(), s.getAddress(), s.getPaymentMethod(), s.getSalary(), s.getComission(),
                 s.getSyndicate(), s.getPayslipSheet());
@@ -45,10 +36,6 @@ public class Commissioned extends Employee {
 
     public Double getComission() {
         return comission;
-    }
-
-    public void setComission(Double comission) {
-        this.comission = comission;
     }
 
     public List<Sales> getSales() {

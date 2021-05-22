@@ -2,7 +2,6 @@ package payroll;
 
 import java.util.Scanner;
 import java.util.Stack;
-
 import payroll.employee.MenuEmployee;
 import payroll.employee.MenuTimecard;
 import payroll.employee.model.Commissioned;

@@ -16,10 +16,6 @@ public class DepositByBankAccount extends PaymentMethod{
         return accountType;
     }
 
-    public void setAccountType(String accountType) {
-        this.accountType = accountType;
-    }
-
     @Override
     public String toString() {
         return super.toString() +"\nType of Payment: " + getClass().getSimpleName() + "\nAccount Type: " + getAccountType();

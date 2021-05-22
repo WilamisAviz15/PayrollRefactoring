@@ -18,16 +18,8 @@ public class Sales {
         this(s.getDate(), s.getValue());
     }
 
-    public void setData(LocalDate date) {
-        this.date = date;
-    }
-
     public Double getValue() {
         return value;
-    }
-
-    public void setData(Double value) {
-        this.value = value;
     }
 
     @Override

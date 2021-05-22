@@ -16,10 +16,6 @@ public class HandsCheck extends PaymentMethod{
         return numberCheck;
     }
 
-    public void setNumberCheck(int numberCheck) {
-        this.numberCheck = numberCheck;
-    }
-
     @Override
     public String toString() {
         return super.toString() +"\nType of Payment: "+ getClass().getSimpleName() + "\nNumber Check: " + getNumberCheck();

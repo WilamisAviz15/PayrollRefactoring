@@ -11,9 +11,6 @@ public class Hourly extends Employee {
     private Double hourlyValue;
     private List<Timecard> timeCard;
 
-    public Hourly() {
-    }
-
     public Hourly(Hourly s) {
         this(s.getId(), s.getName(), s.getAddress(), s.getPaymentMethod(), s.getHourlyValue(), s.getSyndicate(), s.getPayslipSheet());
         this.setTimecard(s.getTimecard());

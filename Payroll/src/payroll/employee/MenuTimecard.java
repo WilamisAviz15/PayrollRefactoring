@@ -5,7 +5,6 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
-
 import payroll.StackUndoRedo;
 import payroll.employee.model.Employee;
 import payroll.employee.model.Hourly;

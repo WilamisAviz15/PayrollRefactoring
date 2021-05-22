@@ -1,11 +1,8 @@
 package payroll.employee;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
-
-import payroll.Panel;
 import payroll.StackUndoRedo;
 import payroll.employee.model.Commissioned;
 import payroll.employee.model.Employee;

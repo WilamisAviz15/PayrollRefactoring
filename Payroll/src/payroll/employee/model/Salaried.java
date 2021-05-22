@@ -9,9 +9,6 @@ import payroll.syndicate.Syndicate;
 public class Salaried extends Employee {
     private Double salary;
 
-    public Salaried() {
-    }
-
     public Salaried(Salaried s) {
         this(s.getId(), s.getName(), s.getAddress(), s.getPaymentMethod(), s.getSalary(), s.getSyndicate(), s.getPayslipSheet());
     }

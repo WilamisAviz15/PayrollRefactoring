@@ -6,9 +6,6 @@ public class PaymentMethod {
     private String accountNumber;
     private String paySchedule;
 
-    public PaymentMethod() {
-    }
-
     public PaymentMethod(PaymentMethod pM){
         this(pM.getBankId(), pM.getAgency(), pM.getAccountNumber(), pM.getPaySchedule());
     }
@@ -24,10 +21,6 @@ public class PaymentMethod {
         return bankId;
     }
 
-    public void setBankId(String bankId) {
-        this.bankId = bankId;
-    }
-
     public String getPaySchedule() {
         return paySchedule;
     }
@@ -40,16 +33,8 @@ public class PaymentMethod {
         return agency;
     }
 
-    public void setAgency(String agency) {
-        this.agency = agency;
-    }
-
     public String getAccountNumber() {
         return accountNumber;
-    }
-
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
     }
 
     @Override
