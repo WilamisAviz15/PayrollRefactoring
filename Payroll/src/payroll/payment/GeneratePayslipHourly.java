@@ -49,8 +49,8 @@ public class GeneratePayslipHourly {
                 for (Timecard sTimecard : getTimeCard) {
                     if ((sTimecard.getDate().isBefore(oldData) || oldData.isEqual(sTimecard.getDate()))
                             && (sTimecard.getDate().isAfter(lastPayment) || sTimecard.getDate().isEqual(lastPayment))) {
-                        LocalTime login = sTimecard.getLogin();
-                        LocalTime logout = sTimecard.getLogout();
+                        LocalTime login = sTimecard.getTime().getLogin();
+                        LocalTime logout = sTimecard.getTime().getLogout();
                         Duration duration = Duration.between(login, logout);
                         hours = (double) duration.getSeconds() / 3600;
                         ttlHours += hours;
@@ -88,8 +88,8 @@ public class GeneratePayslipHourly {
             int i = 0;
             for (Timecard sTimecard : getTimeCard) {
                 if (sTimecard.getDate().isBefore(oldData) || oldData.isEqual(sTimecard.getDate())) {
-                    LocalTime login = sTimecard.getLogin();
-                    LocalTime logout = sTimecard.getLogout();
+                    LocalTime login = sTimecard.getTime().getLogin();
+                    LocalTime logout = sTimecard.getTime().getLogout();
                     Duration duration = Duration.between(login, logout);
                     hours = (double) duration.getSeconds() / 3600;
                     ttlHours += hours;
@@ -149,8 +149,8 @@ public class GeneratePayslipHourly {
                     if ((sTimecard.getDate().isBefore(date) || date.isEqual(sTimecard.getDate()))) {
                         if (lastPayslip.getLastPaidIsHoliday()) {
                             if (sTimecard.getDate().isAfter(lastPayment) || sTimecard.getDate().isEqual(lastPayment)) {
-                                LocalTime login = sTimecard.getLogin();
-                                LocalTime logout = sTimecard.getLogout();
+                                LocalTime login = sTimecard.getTime().getLogin();
+                                LocalTime logout = sTimecard.getTime().getLogout();
                                 Duration duration = Duration.between(login, logout);
                                 hours = (double) duration.getSeconds() / 3600;
                                 ttlHours += hours;
@@ -165,8 +165,8 @@ public class GeneratePayslipHourly {
                             }
                         } else {
                             if (sTimecard.getDate().isAfter(lastPayment)) {
-                                LocalTime login = sTimecard.getLogin();
-                                LocalTime logout = sTimecard.getLogout();
+                                LocalTime login = sTimecard.getTime().getLogin();
+                                LocalTime logout = sTimecard.getTime().getLogout();
                                 Duration duration = Duration.between(login, logout);
                                 hours = (double) duration.getSeconds() / 3600;
                                 ttlHours += hours;
@@ -206,8 +206,8 @@ public class GeneratePayslipHourly {
             int i = 0;
             for (Timecard sTimecard : getTimeCard) {
                 if (sTimecard.getDate().isBefore(date) || date.isEqual(sTimecard.getDate())) {
-                    LocalTime login = sTimecard.getLogin();
-                    LocalTime logout = sTimecard.getLogout();
+                    LocalTime login = sTimecard.getTime().getLogin();
+                    LocalTime logout = sTimecard.getTime().getLogout();
                     Duration duration = Duration.between(login, logout);
                     hours = (double) duration.getSeconds() / 3600;
                     ttlHours += hours;
@@ -259,8 +259,8 @@ public class GeneratePayslipHourly {
                     if ((sTimecard.getDate().isBefore(oldData) || oldData.isEqual(sTimecard.getDate()))) {
                         if (lastPayslip.getLastPaidIsHoliday()) {
                             if (sTimecard.getDate().isAfter(lastPayment) || sTimecard.getDate().isEqual(lastPayment)) {
-                                LocalTime login = sTimecard.getLogin();
-                                LocalTime logout = sTimecard.getLogout();
+                                LocalTime login = sTimecard.getTime().getLogin();
+                                LocalTime logout = sTimecard.getTime().getLogout();
                                 Duration duration = Duration.between(login, logout);
                                 hours = (double) duration.getSeconds() / 3600;
                                 ttlHours += hours;
@@ -275,8 +275,8 @@ public class GeneratePayslipHourly {
                             }
                         } else {
                             if (sTimecard.getDate().isAfter(lastPayment)) {
-                                LocalTime login = sTimecard.getLogin();
-                                LocalTime logout = sTimecard.getLogout();
+                                LocalTime login = sTimecard.getTime().getLogin();
+                                LocalTime logout = sTimecard.getTime().getLogout();
                                 Duration duration = Duration.between(login, logout);
                                 hours = (double) duration.getSeconds() / 3600;
                                 ttlHours += hours;
@@ -316,8 +316,8 @@ public class GeneratePayslipHourly {
             int i = 0;
             for (Timecard sTimecard : getTimeCard) {
                 if (sTimecard.getDate().isBefore(date) || date.isEqual(sTimecard.getDate())) {
-                    LocalTime login = sTimecard.getLogin();
-                    LocalTime logout = sTimecard.getLogout();
+                    LocalTime login = sTimecard.getTime().getLogin();
+                    LocalTime logout = sTimecard.getTime().getLogout();
                     Duration duration = Duration.between(login, logout);
                     hours = (double) duration.getSeconds() / 3600;
                     ttlHours += hours;

@@ -9,6 +9,7 @@ import java.util.Stack;
 import payroll.StackUndoRedo;
 import payroll.employee.model.Employee;
 import payroll.employee.model.Hourly;
+import payroll.employee.model.TimeLogin;
 import payroll.employee.model.Timecard;
 import payroll.utils.Utils;
 
@@ -51,7 +52,8 @@ public class MenuTimecard {
                 empl.setTimecard(t);
                 LocalDate date = Utils.validateDate(sc);
                 LocalTime loginTime = Utils.validateTime(sc);
-                Timecard tc = new Timecard(date, loginTime);
+                TimeLogin time = new TimeLogin(loginTime, null);
+                Timecard tc = new Timecard(date, time);
                 empl.getTimecard().add(tc);
                 System.out.println("Successful login.");
             } else {
@@ -92,8 +94,10 @@ public class MenuTimecard {
                     List<Timecard> t = Utils.cloneListTimecard(empl.getTimecard());
                     empl.setTimecard(t);
                     LocalTime logoutTime = Utils.validateTime(sc);
+                    TimeLogin time = new TimeLogin(empl.getTimecard().get(aux).getTime().getLogin(), logoutTime);
+                    empl.getTimecard().get(aux).setTime(time);
                     Timecard tc = new Timecard(empl.getTimecard().get(aux).getDate(),
-                            empl.getTimecard().get(aux).getLogin(), logoutTime);
+                            empl.getTimecard().get(aux).getTime());
                     empl.getTimecard().set(aux, tc);
                     System.out.println("Successful logout.");
                 } else {
