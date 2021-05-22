@@ -51,3 +51,7 @@ Na classe Timecard.java era passado duas variáveis de localTime de login e logo
 
 ### Move Accumulation to Collecting Parameter
 Na Classe Employee.java havia uma verificação dentro do toString() para saber se o empregado pertencia ao sindicato ou não, onde havia uma concatenação de string de acordo com a resposta obtida do if. Foi criado o método infoSyndicateConcat() e adicionado ao toString. A alteração está no commit [ce0395c](https://github.com/WilamisAviz15/PayrollRefactoring/commit/ce0395c92e0bbfccf13b4a0d1495cb9e83f54f60)
+
+###Removing Generative Speculation
+Foram removidos construtores, métodos e imports não utilizados em todo o code. As remoções estão aqui: 
+[b8695c6](https://github.com/WilamisAviz15/PayrollRefactoring/commit/b8695c60fed6ace15b6f905799df04e04261be42)
