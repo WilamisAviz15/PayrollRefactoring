@@ -42,3 +42,6 @@ O objetivo do projeto é construir um sistema de folha de pagamento. O sistema c
 * Large Class
 * Shotgun Surgery
 * Indecent Exposure
+
+# Refatoramento
+* Aq
