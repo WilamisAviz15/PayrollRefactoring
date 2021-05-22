@@ -78,16 +78,18 @@ public class Employee {
     public void setPayslipSheet(List<Payslip> payslipSheet) {
         this.payslipSheet = payslipSheet;
     }
-
+    
+    private String infoSyndicateConcat(){
+        if (getSyndicate().getActive() == true) {
+            return getSyndicate().toString();
+        } else {
+            return "\n--Syndicate info--\n Does not belong to syndicate.";
+        }
+    }
+    
     @Override
     public String toString() {
-        String message = "\nEmployee ID: " + getId() + "\nName: " + getName() + "\nAddress: " + getAddress()
-                + "\n--Info Payment-- \n" + getPaymentMethod();
-        if (getSyndicate().getActive() == true) {
-            message += getSyndicate().toString();
-        } else {
-            message += "\n--Syndicate info--\n Does not belong to syndicate.";
-        }
-        return message;
+        return "\nEmployee ID: " + getId() + "\nName: " + getName() + "\nAddress: " + getAddress()
+                + "\n--Info Payment-- \n" + getPaymentMethod() + infoSyndicateConcat();
     }
 }
