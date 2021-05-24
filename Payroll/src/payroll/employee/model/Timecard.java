@@ -1,27 +1,43 @@
 package payroll.employee.model;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Timecard{
-    private TimeLogin time;
     private LocalDate date;
+    private LocalTime login;
+    private LocalTime logout;
 
-    public Timecard(LocalDate date, TimeLogin time){
+    public Timecard(LocalDate date, LocalTime login){
         this.date = date;
-        this.time.setLogin(time.getLogin());
-        this.time.setLogout(time.getLogout());
+        this.login= login;
+        //this.time.setLogout(time.getLogout());
+    }
+
+    public Timecard(LocalDate date, LocalTime login, LocalTime logout){
+        this.date = date;
+        this.login= login;
+        this.logout = logout;
     }
 
     public Timecard(Timecard t){
-        this( t.getDate(),t.getTime());
+        this( t.getDate(),t.getLogin(), t.getLogout());
     }
 
-    public TimeLogin getTime() {
-        return time;
+    public LocalTime getLogin() {
+        return login;
     }
 
-    public void setTime(TimeLogin time) {
-        this.time = time;
+    public void setLogin(LocalTime login) {
+        this.login = login;
+    }
+
+    public LocalTime getLogout() {
+        return logout;
+    }
+
+    public void setLogout(LocalTime logout) {
+        this.logout = logout;
     }
 
     public LocalDate getDate() {
@@ -30,6 +46,6 @@ public class Timecard{
 
     @Override
     public String toString() {
-        return "Date: " + getDate() +" | "+ "Login: " + getTime().toString();
+        return "Date: " + getDate() +" | "+ "Login: " + getLogin() +" | "+ "Logout: " + getLogout() + "\n";
     }
 }
