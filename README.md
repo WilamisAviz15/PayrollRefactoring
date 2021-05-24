@@ -46,7 +46,7 @@ O objetivo do projeto é construir um sistema de folha de pagamento. O sistema c
 # Refatoramento
 
 ### Command
-Foi utilizado o padrão de projeto Command para evitar de usar if/else ou switch/case nos menus do programa. Todos os menus estão no padrão Command. As mudanças estão no commit [59475bc](https://github.com/WilamisAviz15/PayrollRefactoring/commit/59475bc63956216cab9712ebe1575ed7c41ff7d1)
+Foi utilizado o padrão de projeto Command para evitar de usar if/else ou switch/case nos menus do programa. Todos os menus estão no padrão Command. Foi criada uma interface de menu para executar o comando de acordo com o menu vigente. As mudanças estão no commit [59475bc](https://github.com/WilamisAviz15/PayrollRefactoring/commit/59475bc63956216cab9712ebe1575ed7c41ff7d1)
 
 ### Long Parameter List
 Em todas as funções eram passadas as pilhas de UNDO e REDO. Foi criado um objeto que contia ambas as pilhas evitando parametros desnecessários. Alteração pode ser vista no commit: [b5e5a09](https://github.com/WilamisAviz15/PayrollRefactoring/commit/b5e5a0986767729fe53756865af72b7bc743a384)
