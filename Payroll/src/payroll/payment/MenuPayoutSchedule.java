@@ -1,7 +1,14 @@
 package payroll.payment;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import payroll.IMenu;
+import payroll.Menu;
+import payroll.commands.payoutschedule.CreateSchedule;
+import payroll.commands.payoutschedule.PrintSchedules;
+import payroll.commands.payoutschedule.ScheduleCommands;
+import payroll.commands.rotatepayroll.PrintPayroll;
 import payroll.payment.model.PaymentSchedule;
 import payroll.utils.Utils;
 
@@ -10,6 +17,7 @@ public class MenuPayoutSchedule {
     public static void printAllSchedules(PaymentSchedule paySchedule) {
         System.out.println("--- Avaliable schedules ---");
         paySchedule.print();
+        System.out.println("---------------------------");
     }
 
     public static void createSchedule(PaymentSchedule paySchedule, Scanner sc) {
@@ -46,24 +54,21 @@ public class MenuPayoutSchedule {
     public static void Menu(PaymentSchedule paySchedule) {
         int option;
         String tmp = "";
-        do {
-            Scanner op = new Scanner(System.in);
-            System.out.println("-----------------------");
-            System.out.println("Payout Schedule");
-            System.out.println("1 - List All Payment Schedules");
-            System.out.println("2 - Add new Payment Schedule");
-            System.out.println("3 - Back");
-            System.out.println("-----------------------");
-            tmp = Utils.consoleReadInputIntegerOptions(tmp, op, 1, 4);
+        Scanner op = new Scanner(System.in);
+        Menu menu = new Menu();
+        ScheduleCommands commands = new ScheduleCommands();
+        ArrayList<IMenu> optionsMenu = new ArrayList<IMenu>();
+        optionsMenu.add(new CreateSchedule(commands, paySchedule));
+        optionsMenu.add(new PrintSchedules(commands, paySchedule));
+        while (true) {
+            System.out.println("Choose one:\n\n" + "[0]  Add new Payment Schedule\n" + "[1]  List All Payment Schedules\n" + "[2]  Back\n");
+            tmp = Utils.consoleReadInputIntegerOptions(tmp, op, 0, 3);
             option = Integer.parseInt(tmp);
-            switch (option) {
-            case 1:
-                printAllSchedules(paySchedule);
-                break;
-            case 2:
-                createSchedule(paySchedule, op);
+            if (option == 2) {
                 break;
             }
-        } while (option != 3);
+            menu.setCommand(optionsMenu.get(option));
+            menu.executeComand();
+        }
     }
 }

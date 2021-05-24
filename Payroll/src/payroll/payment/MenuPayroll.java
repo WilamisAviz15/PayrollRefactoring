@@ -7,7 +7,12 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
+import payroll.IMenu;
+import payroll.Menu;
 import payroll.StackUndoRedo;
+import payroll.commands.rotatepayroll.PrintPayroll;
+import payroll.commands.rotatepayroll.RotateCommands;
+import payroll.commands.rotatepayroll.RotatePayroll;
 import payroll.employee.model.Commissioned;
 import payroll.employee.model.Employee;
 import payroll.employee.model.Hourly;
@@ -21,26 +26,21 @@ public class MenuPayroll {
         int option;
         String tmp = "";
         Scanner op = new Scanner(System.in);
-        do {
-            System.out.println("--- Payroll ---");
-            System.out.println("1 - Rotate Payroll");
-            System.out.println("2 - List all payroll");
-            System.out.println("3 - Back");
-
-            tmp = Utils.consoleReadInputIntegerOptions(tmp, op, 1, 4);
+        Menu menu = new Menu();
+        RotateCommands commands = new RotateCommands();
+        ArrayList<IMenu> optionsMenu = new ArrayList<IMenu>();
+        optionsMenu.add(new RotatePayroll(commands, list_employee, stack_undo_redo));
+        optionsMenu.add(new PrintPayroll(commands, list_employee));
+        while (true) {
+            System.out.println("Choose one:\n\n" + "[0]  Rotate Payroll\n" + "[1]  List all Payroll\n" + "[2]  Back\n");
+            tmp = Utils.consoleReadInputIntegerOptions(tmp, op, 0, 3);
             option = Integer.parseInt(tmp);
-            switch (option) {
-                case 1:
-                    LocalDate date = Utils.validateDate(op);
-                    rotate(list_employee, date, stack_undo_redo);
-                    break;
-                case 2:
-                    printAll(list_employee);
-                    break;
-                case 3:
-                    break;
+            if (option == 2) {
+                break;
             }
-        } while (option != 3);
+            menu.setCommand(optionsMenu.get(option));
+            menu.executeComand();
+        }
     }
 
     public static void printAll(List<Employee> list_employee) {
@@ -124,7 +124,9 @@ public class MenuPayroll {
         System.out.println("#################END PAYSLIP###############");
     }
 
-    public static void rotate(List<Employee> list_employee, LocalDate date, StackUndoRedo stack_undo_redo) {
+    public static void rotate(List<Employee> list_employee, StackUndoRedo stack_undo_redo) {
+        Scanner op = new Scanner(System.in);
+        LocalDate date = Utils.validateDate(op);
         String scheduleString = "", monthSchedule = "", weekSchedule = "", daySchedule = "";
         List<Payslip> payslip = null;
         Calendar c = Calendar.getInstance();
@@ -154,7 +156,7 @@ public class MenuPayroll {
                 List<Payslip> clone = new ArrayList<Payslip>();
                 for (Payslip item : selectedEmployee.getPayslipSheet()) {
                     Payslip p = (Payslip) item;
-                    p =  new Payslip(item.getBasicPay(), item.getNetPay(), item.getDate(), item.getTax(),
+                    p = new Payslip(item.getBasicPay(), item.getNetPay(), item.getDate(), item.getTax(),
                             item.getAdditionaTax(), item.getReferenceMonth(), item.getCommissionsValue(),
                             item.getLastPaidIsHoliday());
                     clone.add(p);
@@ -172,7 +174,7 @@ public class MenuPayroll {
                 selectedEmployee.setPayslipSheet(clone);
             }
         }
-        
+
         for (Employee selectedEmployee : list_employee) {
             if (selectedEmployee instanceof Salaried) {
                 GeneratePayslipEmployee.genEmployee(selectedEmployee, scheduleString, monthSchedule, daySchedule,

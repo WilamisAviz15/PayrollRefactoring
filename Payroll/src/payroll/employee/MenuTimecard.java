@@ -8,33 +8,10 @@ import java.util.Stack;
 import payroll.StackUndoRedo;
 import payroll.employee.model.Employee;
 import payroll.employee.model.Hourly;
-import payroll.employee.model.TimeLogin;
 import payroll.employee.model.Timecard;
 import payroll.utils.Utils;
 
 public class MenuTimecard {
-    public static void Timecard(List<Employee> list_employee, StackUndoRedo stack_undo_redo) {
-        int option;
-        String tmp = "";
-        Scanner op = new Scanner(System.in);
-        do {
-            System.out.println("--- Timecard ---");
-            System.out.println("1 - Timecard login");
-            System.out.println("2 - Timecard logout");
-            System.out.println("3 - Back");
-            tmp = Utils.consoleMenuTimecard(tmp, op);
-            option = Integer.parseInt(tmp);
-            switch (option) {
-                case 1:
-                    Login(list_employee, stack_undo_redo);
-                    break;
-                case 2:
-                    Logout(list_employee, stack_undo_redo);
-                    break;
-            }
-        } while (option != 3);
-    }
-
     public static void Login(List<Employee> list_employee, StackUndoRedo stack_undo_redo) {
         int index = MenuEmployee.findEmployee(list_employee);
         String tmp = "";
@@ -51,8 +28,7 @@ public class MenuTimecard {
                 empl.setTimecard(t);
                 LocalDate date = Utils.validateDate(sc);
                 LocalTime loginTime = Utils.validateTime(sc);
-                TimeLogin time = new TimeLogin(loginTime, null);
-                Timecard tc = new Timecard(date, time);
+                Timecard tc = new Timecard(date, loginTime);
                 empl.getTimecard().add(tc);
                 System.out.println("Successful login.");
             } else {
@@ -93,10 +69,8 @@ public class MenuTimecard {
                     List<Timecard> t = Utils.cloneListTimecard(empl.getTimecard());
                     empl.setTimecard(t);
                     LocalTime logoutTime = Utils.validateTime(sc);
-                    TimeLogin time = new TimeLogin(empl.getTimecard().get(aux).getTime().getLogin(), logoutTime);
-                    empl.getTimecard().get(aux).setTime(time);
                     Timecard tc = new Timecard(empl.getTimecard().get(aux).getDate(),
-                            empl.getTimecard().get(aux).getTime());
+                    empl.getTimecard().get(aux).getLogin(), logoutTime);
                     empl.getTimecard().set(aux, tc);
                     System.out.println("Successful logout.");
                 } else {
