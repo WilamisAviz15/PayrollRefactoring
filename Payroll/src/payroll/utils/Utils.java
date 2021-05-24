@@ -111,7 +111,6 @@ public class Utils {
                 aux = consoleReadInputIntegerNumber(aux, sc, true);
                 int m = Integer.parseInt(aux);
                 time = LocalTime.of(h, m);
-                System.out.println(time);
                 break;
             } catch (Exception e) {
                 System.out.println("Hora inválida");
