@@ -51,7 +51,7 @@ Foi utilizado o padrão de projeto Command para evitar de usar if/else ou switch
 ### Long Parameter List
 Em todas as funções eram passadas as pilhas de UNDO e REDO. Foi criado um objeto que contia ambas as pilhas evitando parametros desnecessários. Alteração pode ser vista no commit: [b5e5a09](https://github.com/WilamisAviz15/PayrollRefactoring/commit/b5e5a0986767729fe53756865af72b7bc743a384)
 
-### Move Accumulation to Collecting Parameter
+### Introduce Parameter Object
 Na Classe Employee.java havia uma verificação dentro do toString() para saber se o empregado pertencia ao sindicato ou não, onde havia uma concatenação de string de acordo com a resposta obtida do if. Foi criado o método infoSyndicateConcat() e adicionado ao toString. A alteração está no commit [ce0395c](https://github.com/WilamisAviz15/PayrollRefactoring/commit/ce0395c92e0bbfccf13b4a0d1495cb9e83f54f60)
 
 ### Removing Generative Speculation
